@@ -6,3 +6,5 @@ export type User = {
   avatar?: string;
   date?: Date;
 };
+
+export type LoginUser = Pick<User, "email" | "password">;

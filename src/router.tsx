@@ -10,7 +10,7 @@ export const routes = [
     element: <Root />,
     children: [
       {
-        path: "login",
+        path: "sign-in",
         element: <SignIn />,
       },
       {
