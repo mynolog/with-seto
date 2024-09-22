@@ -1,6 +1,7 @@
 import type { User } from "../types/UserType";
 import { ChangeEvent, FormEvent, useState } from "react";
 import api from "../apis/interceptor";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const [input, setInput] = useState<User>({
@@ -52,9 +53,14 @@ export default function SignUp() {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSignUpSubmit}>
-        <h1>회원가입</h1>
+    <div className="w-full flex justify-center">
+      <form
+        onSubmit={handleSignUpSubmit}
+        className="w-2/4 flex flex-col px-24 gap-2 shadow-2xl rounded-xl"
+      >
+        <h1 className="flex items-center justify-center text-2xl font-bold my-10">
+          회원가입
+        </h1>
         <label htmlFor="name">
           <span>이름</span>
         </label>
@@ -63,6 +69,7 @@ export default function SignUp() {
           value={input.name}
           onChange={handleChangeInput}
           required
+          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="email">
           <span>이메일</span>
@@ -73,6 +80,7 @@ export default function SignUp() {
           onChange={handleChangeInput}
           placeholder="abc@na.com"
           required
+          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="password">
           <span>비밀번호</span>
@@ -82,6 +90,7 @@ export default function SignUp() {
           name="password"
           value={input.password}
           onChange={handleChangeInput}
+          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="passwordConfirm">
           <span> 비밀번호 재확인</span>
@@ -91,20 +100,17 @@ export default function SignUp() {
           name="passwordConfirm"
           value={input.passwordConfirm}
           onChange={handleChangeInput}
+          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
-        <button>가입하기</button>
+        <button className="mx-24 my-10 py-4 rounded-full text-white text-xl bg-[#AABFB2] outline-none border-none">
+          가입하기
+        </button>
         {validationError && <div>{validationError}</div>}
+        <div>
+          <span>이미 계정이 있으신가요? </span>
+          <Link to="/sign-in">로그인 →</Link>
+        </div>
       </form>
     </div>
   );
 }
-
-/* 
-
-name: String, required
-email: String, required
-password: String, required
-avatar: String
-date: Date
-
-*/

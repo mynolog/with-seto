@@ -2,6 +2,7 @@ import type { LoginUser } from "../types/UserType";
 import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 import api from "../apis/interceptor";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const [input, setInput] = useState<LoginUser>({
@@ -42,9 +43,14 @@ export default function SignIn() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSignInSubmit}>
-        <h1>로그인</h1>
+    <div className="w-full flex justify-center">
+      <form
+        onSubmit={handleSignInSubmit}
+        className="w-2/4 flex flex-col px-24 gap-2 shadow-2xl rounded-xl"
+      >
+        <h1 className="flex items-center justify-center text-2xl font-bold my-10">
+          로그인
+        </h1>
         <label htmlFor="email">
           <span>이메일</span>
         </label>
@@ -53,6 +59,7 @@ export default function SignIn() {
           value={input.email}
           onChange={handleChangeInput}
           placeholder="abc@na.com"
+          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="password">
           <span>비밀번호</span>
@@ -63,8 +70,15 @@ export default function SignIn() {
           type="password"
           placeholder="비밀번호"
           onChange={handleChangeInput}
+          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
-        <button>로그인</button>
+        <button className="mx-24 my-10 py-4 rounded-full text-white text-xl bg-[#AABFB2] outline-none border-none">
+          로그인
+        </button>
+        <div>
+          <span>아직 계정이 없으신가요? </span>
+          <Link to="/sign-up">가입하기 →</Link>
+        </div>
       </form>
     </div>
   );
