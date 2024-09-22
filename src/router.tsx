@@ -3,6 +3,7 @@ import Root from "./components/Root";
 
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import MyPage from "./components/MyPage";
 
 export const routes = [
   {
@@ -16,6 +17,10 @@ export const routes = [
       {
         path: "sign-up",
         element: <SignUp />,
+      },
+      {
+        path: "my-page",
+        element: <MyPage />,
       },
     ],
   },

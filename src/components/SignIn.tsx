@@ -1,14 +1,27 @@
-import type { LoginUser } from "../types/UserType";
+import type { LoginUser, SignInResponse } from "../types/UserType";
 import type { ChangeEvent, FormEvent } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { isLoginSelector, TokenAtom } from "../recoil/TokenAtom";
 import api from "../apis/interceptor";
-import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const [input, setInput] = useState<LoginUser>({
     email: "",
     password: "",
   });
+  const setAccessToken = useSetRecoilState(TokenAtom);
+  const navigate = useNavigate();
+  const isLogin = useRecoilValue(isLoginSelector);
+
+  useEffect(() => {
+    if (isLogin) {
+      return;
+    } else {
+      navigate("/sign-in");
+    }
+  }, []);
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,11 +43,12 @@ export default function SignIn() {
 
   const postSignIn = async ({ email, password }: LoginUser) => {
     try {
-      const response = await api.post("/users/signin", {
+      const response = await api.post<SignInResponse>("/users/signin", {
         email,
         password,
       });
-      console.log(response);
+      setAccessToken(response.data.accessToken);
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);
