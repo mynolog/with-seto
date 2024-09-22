@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# 미니 게시판 with SETO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 구현한 기능
 
-Currently, two official plugins are available:
+- [x] 회원가입
+- [x] 로그인
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## TODO
 
-## Expanding the ESLint configuration
+- [ ] 입력값 검증
+- [ ] 로그인 시 메인화면으로 리다이렉트
+- [ ] 게스트/ 유저 상태에 따라 네비게이션 분기
+- [ ] 전역 상태 관리(useContext)
+- [ ] 로그인 상태 유지
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Repo
 
-- Configure the top-level `parserOptions` property like this:
+#### [Frontend](https://github.com/mynolog/with-seto)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+#### [Backend](https://github.com/SonSETO/withMinHo)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run start
 ```
