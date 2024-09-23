@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { isLoginSelector, TokenAtom } from "../recoil/TokenAtom";
 import api from "../apis/interceptor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignIn() {
   const [input, setInput] = useState<LoginUser>({
@@ -65,6 +68,14 @@ export default function SignIn() {
         <h1 className="flex items-center justify-center text-2xl font-bold my-10">
           로그인
         </h1>
+        <button className="py-4 rounded-full text-white text-xl bg-[#4284F3] outline-none border-none">
+          <FontAwesomeIcon icon={faGoogle} />
+          <span> Google 로그인</span>
+        </button>
+        <button className="mb-10 py-4 rounded-full text-black text-xl bg-[#F6D503] outline-none border-none">
+          <FontAwesomeIcon icon={faComment} />
+          <span> Kakao 로그인</span>
+        </button>
         <label htmlFor="email">
           <span>이메일</span>
         </label>

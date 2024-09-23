@@ -2,6 +2,9 @@ import type { User } from "../types/UserType";
 import { ChangeEvent, FormEvent, useState } from "react";
 import api from "../apis/interceptor";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUp() {
   const [input, setInput] = useState<User>({
@@ -61,6 +64,14 @@ export default function SignUp() {
         <h1 className="flex items-center justify-center text-2xl font-bold my-10">
           회원가입
         </h1>
+        <button className="py-4 rounded-full text-white text-xl bg-[#4284F3] outline-none border-none">
+          <FontAwesomeIcon icon={faGoogle} />
+          <span> Google 계정으로 가입하기</span>
+        </button>
+        <button className="mb-10 py-4 rounded-full text-black text-xl bg-[#F6D503] outline-none border-none">
+          <FontAwesomeIcon icon={faComment} />
+          <span> Kakao 계정으로 가입하기</span>
+        </button>
         <label htmlFor="name">
           <span>이름</span>
         </label>
