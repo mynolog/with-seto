@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./components/Root";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import MyPage from "./components/MyPage";
@@ -18,8 +19,14 @@ export const routes = [
         path: "sign-up",
         element: <SignUp />,
       },
+    ],
+  },
+  {
+    path: "/my-page",
+    element: <ProtectedRoute />,
+    children: [
       {
-        path: "my-page",
+        index: true,
         element: <MyPage />,
       },
     ],

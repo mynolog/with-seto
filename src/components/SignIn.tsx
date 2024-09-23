@@ -21,7 +21,7 @@ export default function SignIn() {
     } else {
       navigate("/sign-in");
     }
-  }, []);
+  }, [isLogin, navigate]);
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
