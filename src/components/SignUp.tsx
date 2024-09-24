@@ -1,7 +1,7 @@
 import type { User } from "../types/UserType";
 import { ChangeEvent, FormEvent, useState } from "react";
 import api from "../apis/interceptor";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,8 @@ export default function SignUp() {
     password: "",
     passwordConfirm: "",
   });
+
+  const navigate = useNavigate();
 
   const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -43,12 +45,14 @@ export default function SignUp() {
 
   const postSignUp = async ({ name, email, password }: User) => {
     try {
+      //TODO: AxiosResponse 타이핑
       const response = await api.post("/users/signup", {
         name,
         email,
         password,
       });
-      console.log(response);
+      console.log(response.data);
+      navigate("/sign-in");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);
@@ -73,7 +77,7 @@ export default function SignUp() {
           <span> Kakao 계정으로 가입하기</span>
         </button>
         <label htmlFor="name">
-          <span>이름</span>
+          <span>이름*</span>
         </label>
         <input
           name="name"
@@ -83,7 +87,7 @@ export default function SignUp() {
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="email">
-          <span>이메일</span>
+          <span>이메일*</span>
         </label>
         <input
           name="email"
