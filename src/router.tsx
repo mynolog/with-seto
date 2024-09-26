@@ -20,6 +20,15 @@ export const routes = [
         element: <SignUp />,
       },
       {
+        path: 'logout',
+        element: <ProtectedRoute />,
+        children: [
+          {
+            index: true,
+          },
+        ],
+      },
+      {
         path: 'my-page',
         element: <ProtectedRoute />,
         children: [

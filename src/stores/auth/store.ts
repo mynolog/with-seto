@@ -6,7 +6,7 @@ type AuthState = {
   accessToken: string | null
   signIn: (email: string, password: string) => Promise<boolean>
   signUp: (email: string, passowrd: string, name: string) => Promise<boolean>
-  logout: () => void
+  logout: () => Promise<boolean>
 }
 
 type SignInResponse = {
@@ -68,5 +68,18 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
     return false
   },
-  logout: () => set({ isLoggedIn: false }),
+  logout: async () => {
+    try {
+      const response = await api.post('/users/logout')
+      if (response.status === 200) {
+        set({ isLoggedIn: false })
+        return true
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error)
+      }
+    }
+    return false
+  },
 }))

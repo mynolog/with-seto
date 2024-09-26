@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../stores/auth/store'
+import Logout from './Logout'
 
 function Nav() {
   const { isLoggedIn } = useAuthStore()
@@ -16,7 +17,8 @@ function Nav() {
               <Link to="/my-page">마이페이지</Link>
             </li>
             <li>
-              <Link to="/sign-out">로그아웃</Link>
+              {/* <Link to="/sign-out">로그아웃</Link> */}
+              <Logout />
             </li>
           </>
         ) : (
