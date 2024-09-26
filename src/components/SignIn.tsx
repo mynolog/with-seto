@@ -1,10 +1,8 @@
-import type { LoginUser, SignInResponse } from '../types/UserType'
+import type { LoginUser } from '../types/UserType'
 import type { ChangeEvent, FormEvent } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useSetRecoilState, useRecoilValue } from 'recoil'
-import { isLoginSelector, TokenAtom } from '../recoil/TokenAtom'
-import api from '../apis/interceptor'
+import { useAuthStore } from '../stores/auth/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
@@ -14,17 +12,16 @@ export default function SignIn() {
     email: '',
     password: '',
   })
-  const setAccessToken = useSetRecoilState(TokenAtom)
   const navigate = useNavigate()
-  const isLogin = useRecoilValue(isLoginSelector)
+  const { signIn } = useAuthStore()
 
-  useEffect(() => {
-    if (isLogin) {
-      return
-    } else {
-      navigate('/sign-in')
-    }
-  }, [isLogin, navigate])
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     return
+  //   } else {
+  //     navigate('/sign-in')
+  //   }
+  // }, [isLogin, navigate])
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -35,8 +32,8 @@ export default function SignIn() {
   }
 
   const handleSignInSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const { email, password } = input
     e.preventDefault()
+    const { email, password } = input
     const userInfo = {
       email,
       password,
@@ -45,17 +42,9 @@ export default function SignIn() {
   }
 
   const postSignIn = async ({ email, password }: LoginUser) => {
-    try {
-      const response = await api.post<SignInResponse>('/users/signin', {
-        email,
-        password,
-      })
-      setAccessToken(response.data.accessToken)
-      navigate('/')
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error)
-      }
+    const result = await signIn(email, password)
+    if (result) {
+      navigate('/my-page')
     }
   }
 

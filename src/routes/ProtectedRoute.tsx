@@ -1,11 +1,10 @@
-import { useRecoilValue } from 'recoil'
-import { isLoginSelector } from '../recoil/TokenAtom'
+import { useAuthStore } from '../stores/auth/store'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoute = () => {
-  const isLogin = useRecoilValue(isLoginSelector)
+  const { isLoggedIn } = useAuthStore()
 
-  return isLogin ? <Outlet /> : <Navigate to="/sign-in" replace />
+  return isLoggedIn ? <Outlet /> : <Navigate to="/sign-in" replace />
 }
 
 export default ProtectedRoute

@@ -1,14 +1,13 @@
-import { useRecoilValue } from 'recoil'
 import { Link } from 'react-router-dom'
-import { isLoginSelector } from '../recoil/TokenAtom'
+import { useAuthStore } from '../stores/auth/store'
 
 function Nav() {
-  const isLogin = useRecoilValue(isLoginSelector)
+  const { isLoggedIn } = useAuthStore()
 
   return (
     <nav className="w-full h-16 bg-[#736D5D] px-10 text-white">
       <ul className="w-full h-full grid grid-cols-12 items-center">
-        {isLogin ? (
+        {isLoggedIn ? (
           <>
             <li className="col-span-10">
               <Link to="/">홈</Link>

@@ -1,10 +1,10 @@
 import type { User } from '../types/UserType'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import api from '../apis/interceptor'
 import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
+import { useAuthStore } from '../stores/auth/store'
 
 export default function SignUp() {
   const [input, setInput] = useState<User>({
@@ -13,6 +13,8 @@ export default function SignUp() {
     password: '',
     passwordConfirm: '',
   })
+
+  const { signUp } = useAuthStore()
 
   const navigate = useNavigate()
 
@@ -24,7 +26,7 @@ export default function SignUp() {
       ...prevState,
       [name]: value,
     }))
-    setValidationError('')
+    setValidationError(null)
   }
 
   const handleSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -44,19 +46,9 @@ export default function SignUp() {
   }
 
   const postSignUp = async ({ name, email, password }: User) => {
-    try {
-      //TODO: AxiosResponse 타이핑
-      const response = await api.post('/users/signup', {
-        name,
-        email,
-        password,
-      })
-      console.log(response.data)
+    const result = await signUp(name, email, password)
+    if (result) {
       navigate('/sign-in')
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error)
-      }
     }
   }
   return (
