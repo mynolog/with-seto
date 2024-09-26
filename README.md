@@ -4,13 +4,17 @@
 
 - [x] 회원가입
 - [x] 로그인
+- [x] 동적 네비게이션
+- [x] 전역 상태 관리 - Zustand
 
 ## TODO
 
-- [ ] Input Validation
+- [ ] 입력값 검증 & 에러 처리
 - [ ] Protected Route
-- [ ] 전역 상태 관리 - Recoil
-- [ ] 로그인 상태 유지 - Recoil Persist
+- [ ] 로그인 상태 유지 - Zustand Persist
+- [ ] JWT 관리 - Cookie Storage & Zustand
+- [ ] 마이페이지 관리
+- [ ] 피드 CRUD
 
 ## Repo
 
