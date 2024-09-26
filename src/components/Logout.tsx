@@ -1,5 +1,5 @@
 function Logout() {
-  return null;
+  return null
 }
 
-export default Logout;
+export default Logout

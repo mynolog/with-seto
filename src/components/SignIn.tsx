@@ -1,63 +1,63 @@
-import type { LoginUser, SignInResponse } from "../types/UserType";
-import type { ChangeEvent, FormEvent } from "react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { isLoginSelector, TokenAtom } from "../recoil/TokenAtom";
-import api from "../apis/interceptor";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import type { LoginUser, SignInResponse } from '../types/UserType'
+import type { ChangeEvent, FormEvent } from 'react'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSetRecoilState, useRecoilValue } from 'recoil'
+import { isLoginSelector, TokenAtom } from '../recoil/TokenAtom'
+import api from '../apis/interceptor'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faComment } from '@fortawesome/free-solid-svg-icons'
 
 export default function SignIn() {
   const [input, setInput] = useState<LoginUser>({
-    email: "",
-    password: "",
-  });
-  const setAccessToken = useSetRecoilState(TokenAtom);
-  const navigate = useNavigate();
-  const isLogin = useRecoilValue(isLoginSelector);
+    email: '',
+    password: '',
+  })
+  const setAccessToken = useSetRecoilState(TokenAtom)
+  const navigate = useNavigate()
+  const isLogin = useRecoilValue(isLoginSelector)
 
   useEffect(() => {
     if (isLogin) {
-      return;
+      return
     } else {
-      navigate("/sign-in");
+      navigate('/sign-in')
     }
-  }, [isLogin, navigate]);
+  }, [isLogin, navigate])
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setInput((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSignInSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const { email, password } = input;
-    e.preventDefault();
+    const { email, password } = input
+    e.preventDefault()
     const userInfo = {
       email,
       password,
-    };
-    postSignIn(userInfo);
-  };
+    }
+    postSignIn(userInfo)
+  }
 
   const postSignIn = async ({ email, password }: LoginUser) => {
     try {
-      const response = await api.post<SignInResponse>("/users/signin", {
+      const response = await api.post<SignInResponse>('/users/signin', {
         email,
         password,
-      });
-      setAccessToken(response.data.accessToken);
-      navigate("/");
+      })
+      setAccessToken(response.data.accessToken)
+      navigate('/')
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error);
+        console.error(error)
       }
     }
-  };
+  }
 
   return (
     <div className="w-full flex justify-center">
@@ -106,5 +106,5 @@ export default function SignIn() {
         </div>
       </form>
     </div>
-  );
+  )
 }

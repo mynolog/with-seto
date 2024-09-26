@@ -1,9 +1,9 @@
-import { useRecoilValue } from "recoil";
-import { Link } from "react-router-dom";
-import { isLoginSelector } from "../recoil/TokenAtom";
+import { useRecoilValue } from 'recoil'
+import { Link } from 'react-router-dom'
+import { isLoginSelector } from '../recoil/TokenAtom'
 
 function Nav() {
-  const isLogin = useRecoilValue(isLoginSelector);
+  const isLogin = useRecoilValue(isLoginSelector)
 
   return (
     <nav className="w-full h-16 bg-[#736D5D] px-10 text-white">
@@ -36,7 +36,7 @@ function Nav() {
         )}
       </ul>
     </nav>
-  );
+  )
 }
 
-export default Nav;
+export default Nav

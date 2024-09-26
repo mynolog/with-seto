@@ -1,64 +1,64 @@
-import type { User } from "../types/UserType";
-import { ChangeEvent, FormEvent, useState } from "react";
-import api from "../apis/interceptor";
-import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import type { User } from '../types/UserType'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import api from '../apis/interceptor'
+import { Link, useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faComment } from '@fortawesome/free-solid-svg-icons'
 
 export default function SignUp() {
   const [input, setInput] = useState<User>({
-    name: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [validationError, setValidationError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null)
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setInput((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-    setValidationError("");
-  };
+    }))
+    setValidationError('')
+  }
 
   const handleSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const { name, email, password, passwordConfirm } = input;
-    e.preventDefault();
+    const { name, email, password, passwordConfirm } = input
+    e.preventDefault()
     if (password !== passwordConfirm) {
       setValidationError(
-        "비밀번호가 일치하지 않습니다. 다시 확인 후 입력해주세요."
-      );
+        '비밀번호가 일치하지 않습니다. 다시 확인 후 입력해주세요.'
+      )
     }
     const userInfo = {
       name,
       email,
       password,
-    };
-    postSignUp(userInfo);
-  };
+    }
+    postSignUp(userInfo)
+  }
 
   const postSignUp = async ({ name, email, password }: User) => {
     try {
       //TODO: AxiosResponse 타이핑
-      const response = await api.post("/users/signup", {
+      const response = await api.post('/users/signup', {
         name,
         email,
         password,
-      });
-      console.log(response.data);
-      navigate("/sign-in");
+      })
+      console.log(response.data)
+      navigate('/sign-in')
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error);
+        console.error(error)
       }
     }
-  };
+  }
   return (
     <div className="w-full flex justify-center">
       <form
@@ -127,5 +127,5 @@ export default function SignUp() {
         </div>
       </form>
     </div>
-  );
+  )
 }

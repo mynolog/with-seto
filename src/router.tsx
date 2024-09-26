@@ -1,26 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
-import Root from "./components/Root";
+import { createBrowserRouter } from 'react-router-dom'
+import Root from './components/Root'
 
-import ProtectedRoute from "./routes/ProtectedRoute";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import MyPage from "./components/MyPage";
+import ProtectedRoute from './routes/ProtectedRoute'
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
+import MyPage from './components/MyPage'
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     children: [
       {
-        path: "sign-in",
+        path: 'sign-in',
         element: <SignIn />,
       },
       {
-        path: "sign-up",
+        path: 'sign-up',
         element: <SignUp />,
       },
       {
-        path: "my-page",
+        path: 'my-page',
         element: <ProtectedRoute />,
         children: [
           {
@@ -31,8 +31,8 @@ export const routes = [
       },
     ],
   },
-];
+]
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes)
 
-export default router;
+export default router
