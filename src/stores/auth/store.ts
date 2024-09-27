@@ -1,11 +1,12 @@
 import { create } from 'zustand'
-import api from '../../apis/interceptor'
+import Cookies from 'js-cookie'
+import api from '../../apis/api'
 
 type AuthState = {
   isLoggedIn: boolean
   accessToken: string | null
   signIn: (email: string, password: string) => Promise<boolean>
-  signUp: (email: string, passowrd: string, name: string) => Promise<boolean>
+  signUp: (email: string, password: string, name: string) => Promise<boolean>
   logout: () => Promise<boolean>
 }
 
@@ -40,7 +41,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         email,
         password,
       })
+      const token = response.data.accessToken
+
       if (response.status === 200) {
+        Cookies.set('accessToken', token, { expires: 7 })
+        set({ accessToken: token })
         set({ isLoggedIn: true })
         return true // 로그인 성공 시 true 반환
       }
@@ -72,7 +77,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const response = await api.post('/users/logout')
       if (response.status === 200) {
-        set({ isLoggedIn: false })
+        set({ isLoggedIn: false, accessToken: null })
         return true
       }
     } catch (error) {
