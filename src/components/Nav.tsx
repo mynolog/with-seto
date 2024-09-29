@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../stores/auth/store'
-import Logout from './Logout'
+import Logout from './auth/Logout.tsx'
 
 function Nav() {
   const { isLoggedIn } = useAuthStore()

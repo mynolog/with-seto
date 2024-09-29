@@ -1,10 +1,10 @@
-import type { LoginUser } from '../types/UserTypes.ts'
+import type { LoginUser } from '../../types/UserTypes.ts'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../stores/auth/store'
-import useForm from '../hooks/useForm'
-import CommonButton from './common/button/CommonButton.tsx'
-import OauthLoginButton from './common/button/OauthLoginButton.tsx'
+import { useAuthStore } from '../../stores/auth/store.ts'
+import useForm from '../../hooks/useForm.tsx'
+import CommonButton from '../common/button/CommonButton.tsx'
+import OauthLoginButton from '../common/button/OauthLoginButton.tsx'
 
 export default function SignIn() {
   const { form, handleFormChange } = useForm<LoginUser>({

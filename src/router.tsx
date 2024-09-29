@@ -1,15 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Root from './components/Root'
+import App from './App.tsx'
 
 import ProtectedRoute from './routes/ProtectedRoute'
-import SignIn from './components/SignIn'
-import SignUp from './components/SignUp'
-import MyPage from './components/MyPage'
+import SignIn from './components/auth/SignIn.tsx'
+import SignUp from './components/auth/SignUp.tsx'
+import MyPage from './components/user/MyPage.tsx'
 
 export const routes = [
   {
     path: '/',
-    element: <Root />,
+    element: <App />,
     children: [
       {
         path: 'sign-in',

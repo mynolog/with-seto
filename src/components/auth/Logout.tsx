@@ -1,4 +1,4 @@
-import { useAuthStore } from '../stores/auth/store'
+import { useAuthStore } from '../../stores/auth/store.ts'
 import { useNavigate } from 'react-router-dom'
 
 export default function Logout() {
