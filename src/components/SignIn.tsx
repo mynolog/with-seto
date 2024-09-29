@@ -1,11 +1,10 @@
-import type { LoginUser } from '../types/UserType'
+import type { LoginUser } from '../types/UserTypes.ts'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/auth/store'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faComment } from '@fortawesome/free-solid-svg-icons'
 import useForm from '../hooks/useForm'
+import CommonButton from './common/button/CommonButton.tsx'
+import OauthLoginButton from './common/button/OauthLoginButton.tsx'
 
 export default function SignIn() {
   const { form, handleFormChange } = useForm<LoginUser>({
@@ -41,22 +40,27 @@ export default function SignIn() {
   }
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full h-full flex justify-center items-center">
       <form
         onSubmit={handleSignInSubmit}
-        className="w-2/4 flex flex-col px-24 gap-2 shadow-2xl rounded-xl"
+        className="w-2/4 flex flex-col px-24 gap-3 shadow-2xl rounded-xl"
       >
         <h1 className="flex items-center justify-center text-2xl font-bold my-10">
           로그인
         </h1>
-        <button className="py-4 rounded-full text-white text-xl bg-[#4284F3] outline-none border-none">
-          <FontAwesomeIcon icon={faGoogle} />
-          <span> Google 로그인</span>
-        </button>
-        <button className="mb-10 py-4 rounded-full text-black text-xl bg-[#F6D503] outline-none border-none">
-          <FontAwesomeIcon icon={faComment} />
-          <span> Kakao 로그인</span>
-        </button>
+        <div className="w-full flex items-center justify-center gap-2">
+          <OauthLoginButton
+            provider="Google"
+            fontSize="1.25rem"
+            bgColor="#4284F3"
+          />
+          <OauthLoginButton
+            provider="Kakao"
+            fontSize="1.25rem"
+            bgColor="#F6D503"
+            textColor="black"
+          />
+        </div>
         <label htmlFor="email">
           <span>이메일</span>
         </label>
@@ -65,6 +69,7 @@ export default function SignIn() {
           value={form.email}
           onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
+          required
         />
         <label htmlFor="password">
           <span>비밀번호</span>
@@ -75,10 +80,9 @@ export default function SignIn() {
           type="password"
           onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
+          required
         />
-        <button className="mx-24 my-10 py-4 rounded-full text-white text-xl bg-[#AABFB2] outline-none border-none">
-          로그인
-        </button>
+        <CommonButton>로그인</CommonButton>
         <div>
           <span>아직 계정이 없으신가요? </span>
           <Link to="/sign-up">가입하기 →</Link>

@@ -6,7 +6,7 @@ function Nav() {
   const { isLoggedIn } = useAuthStore()
 
   return (
-    <nav className="w-full h-16 bg-[#736D5D] px-10 text-white">
+    <nav className="w-full h-16 bg-[#736D5D] px-10 text-white m-0">
       <ul className="w-full h-full grid grid-cols-12 items-center">
         {isLoggedIn ? (
           <>

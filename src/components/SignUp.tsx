@@ -1,12 +1,11 @@
-import type { User } from '../types/UserType'
+import type { User } from '../types/UserTypes.ts'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { useAuthStore } from '../stores/auth/store'
 import { Link, useNavigate } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faComment } from '@fortawesome/free-solid-svg-icons'
 import useForm from '../hooks/useForm'
+import OauthLoginButton from './common/button/OauthLoginButton.tsx'
+import CommonButton from './common/button/CommonButton.tsx'
 
 export default function SignUp() {
   const { form, handleFormChange } = useForm<User>({
@@ -26,7 +25,7 @@ export default function SignUp() {
     e.preventDefault()
     if (password !== passwordConfirm) {
       setValidationError(
-        '비밀번호가 일치하지 않습니다. 다시 확인 후 입력해주세요.'
+        '비밀번호가 일치하지 않습니다. 다시 확인 후 입력해주세요.',
       )
     }
     const userInfo = {
@@ -52,14 +51,20 @@ export default function SignUp() {
         <h1 className="flex items-center justify-center text-2xl font-bold my-10">
           회원가입
         </h1>
-        <button className="py-4 rounded-full text-white text-xl bg-[#4284F3] outline-none border-none">
-          <FontAwesomeIcon icon={faGoogle} />
-          <span> Google 계정으로 가입하기</span>
-        </button>
-        <button className="mb-10 py-4 rounded-full text-black text-xl bg-[#F6D503] outline-none border-none">
-          <FontAwesomeIcon icon={faComment} />
-          <span> Kakao 계정으로 가입하기</span>
-        </button>
+
+        <div className="w-full flex items-center justify-center gap-2">
+          <OauthLoginButton
+            provider="Google"
+            fontSize="1.25rem"
+            bgColor="#4284F3"
+          />
+          <OauthLoginButton
+            provider="Kakao"
+            fontSize="1.25rem"
+            bgColor="#F6D503"
+            textColor="black"
+          />
+        </div>
         <label htmlFor="name">
           <span>이름*</span>
         </label>
@@ -100,9 +105,7 @@ export default function SignUp() {
           onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
-        <button className="mx-24 my-10 py-4 rounded-full text-white text-xl bg-[#AABFB2] outline-none border-none">
-          가입하기
-        </button>
+        <CommonButton>가입하기</CommonButton>
         {validationError && <div>{validationError}</div>}
         <div>
           <span>이미 계정이 있으신가요? </span>
