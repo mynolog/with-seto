@@ -1,14 +1,14 @@
 import type { LoginUser } from '../types/UserType'
-import type { ChangeEvent, FormEvent } from 'react'
-import { useState } from 'react'
+import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/auth/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
+import useForm from '../hooks/useForm'
 
 export default function SignIn() {
-  const [input, setInput] = useState<LoginUser>({
+  const { form, handleFormChange } = useForm<LoginUser>({
     email: '',
     password: '',
   })
@@ -23,17 +23,9 @@ export default function SignIn() {
   //   }
   // }, [isLogin, navigate])
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }))
-  }
-
   const handleSignInSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { email, password } = input
+    const { email, password } = form
     const userInfo = {
       email,
       password,
@@ -70,9 +62,8 @@ export default function SignIn() {
         </label>
         <input
           name="email"
-          value={input.email}
-          onChange={handleChangeInput}
-          placeholder="abc@na.com"
+          value={form.email}
+          onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="password">
@@ -80,10 +71,9 @@ export default function SignIn() {
         </label>
         <input
           name="password"
-          value={input.password}
+          value={form.password}
           type="password"
-          placeholder="비밀번호"
-          onChange={handleChangeInput}
+          onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <button className="mx-24 my-10 py-4 rounded-full text-white text-xl bg-[#AABFB2] outline-none border-none">

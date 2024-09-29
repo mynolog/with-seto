@@ -1,36 +1,28 @@
 import type { User } from '../types/UserType'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import type { FormEvent } from 'react'
+import { useState } from 'react'
+import { useAuthStore } from '../stores/auth/store'
 import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
-import { useAuthStore } from '../stores/auth/store'
+import useForm from '../hooks/useForm'
 
 export default function SignUp() {
-  const [input, setInput] = useState<User>({
+  const { form, handleFormChange } = useForm<User>({
     name: '',
     email: '',
     password: '',
     passwordConfirm: '',
   })
 
-  const { signUp } = useAuthStore()
-
-  const navigate = useNavigate()
-
   const [validationError, setValidationError] = useState<string | null>(null)
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }))
-    setValidationError(null)
-  }
+  const { signUp } = useAuthStore()
+  const navigate = useNavigate()
 
   const handleSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const { name, email, password, passwordConfirm } = input
+    const { name, email, password, passwordConfirm } = form
     e.preventDefault()
     if (password !== passwordConfirm) {
       setValidationError(
@@ -73,8 +65,8 @@ export default function SignUp() {
         </label>
         <input
           name="name"
-          value={input.name}
-          onChange={handleChangeInput}
+          value={form.name}
+          onChange={handleFormChange}
           required
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
@@ -83,30 +75,29 @@ export default function SignUp() {
         </label>
         <input
           name="email"
-          value={input.email}
-          onChange={handleChangeInput}
-          placeholder="abc@na.com"
+          value={form.email}
+          onChange={handleFormChange}
           required
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="password">
-          <span>비밀번호</span>
+          <span>비밀번호*</span>
         </label>
         <input
           type="password"
           name="password"
-          value={input.password}
-          onChange={handleChangeInput}
+          value={form.password}
+          onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <label htmlFor="passwordConfirm">
-          <span> 비밀번호 재확인</span>
+          <span> 비밀번호 재확인*</span>
         </label>
         <input
           type="password"
           name="passwordConfirm"
-          value={input.passwordConfirm}
-          onChange={handleChangeInput}
+          value={form.passwordConfirm}
+          onChange={handleFormChange}
           className="p-2 bg-[#EEEEEE] outline-none rounded-none"
         />
         <button className="mx-24 my-10 py-4 rounded-full text-white text-xl bg-[#AABFB2] outline-none border-none">
