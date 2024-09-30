@@ -9,7 +9,7 @@ import OauthLoginButton from '../common/button/OauthLoginButton.tsx'
 import LoginHr from '../common/hr/LoginHr.tsx'
 
 export default function SignIn() {
-  const { form, handleFormChange } = useForm<LoginUser>({
+  const { form, handleFormChange, invalidErrors } = useForm({
     email: '',
     password: '',
   })
@@ -35,6 +35,10 @@ export default function SignIn() {
   }
 
   const postSignIn = async ({ email, password }: LoginUser) => {
+    if (invalidErrors.email) {
+      console.error(invalidErrors.email.message)
+      return
+    }
     const result = await signIn(email, password)
     if (result) {
       navigate('/my-page')
@@ -51,14 +55,18 @@ export default function SignIn() {
           로그인
         </h1>
         <label htmlFor="email">
-          <span>이메일</span>
+          <span>이메일 </span>
+          {invalidErrors.email && (
+            <span className="text-red-500 text-xs font-bold">
+              {invalidErrors.email.message}
+            </span>
+          )}
         </label>
         <CommonInput
           name="email"
           value={form.email}
           onChange={handleFormChange}
-          type="email"
-          required={true}
+          type="text"
         />
         <label htmlFor="password">
           <span>비밀번호</span>
@@ -67,7 +75,6 @@ export default function SignIn() {
           name="password"
           value={form.password}
           type="password"
-          required={true}
           onChange={handleFormChange}
         />
         <CommonButton>로그인</CommonButton>
