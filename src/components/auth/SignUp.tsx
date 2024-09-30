@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useForm from '../../hooks/useForm.tsx'
 import OauthLoginButton from '../common/button/OauthLoginButton.tsx'
 import CommonButton from '../common/button/CommonButton.tsx'
+import CommonInput from '../common/input/CommonInput.tsx'
 
 export default function SignUp() {
   const { form, handleFormChange } = useForm<User>({
@@ -68,42 +69,42 @@ export default function SignUp() {
         <label htmlFor="name">
           <span>이름*</span>
         </label>
-        <input
+        <CommonInput
           name="name"
           value={form.name}
           onChange={handleFormChange}
-          required
-          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
+          required={true}
         />
+
         <label htmlFor="email">
           <span>이메일*</span>
         </label>
-        <input
+        <CommonInput
           name="email"
           value={form.email}
           onChange={handleFormChange}
-          required
-          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
+          type="email"
+          required={true}
         />
         <label htmlFor="password">
           <span>비밀번호*</span>
         </label>
-        <input
-          type="password"
+        <CommonInput
           name="password"
           value={form.password}
           onChange={handleFormChange}
-          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
+          type="password"
+          required={true}
         />
         <label htmlFor="passwordConfirm">
           <span> 비밀번호 재확인*</span>
         </label>
-        <input
-          type="password"
+        <CommonInput
           name="passwordConfirm"
-          value={form.passwordConfirm}
+          value={form.passwordConfirm!}
           onChange={handleFormChange}
-          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
+          type="password"
+          required={true}
         />
         <CommonButton>가입하기</CommonButton>
         {validationError && <div>{validationError}</div>}

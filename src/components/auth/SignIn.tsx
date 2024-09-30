@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/auth/store.ts'
 import useForm from '../../hooks/useForm.tsx'
 import CommonButton from '../common/button/CommonButton.tsx'
+import CommonInput from '../common/input/CommonInput.tsx'
 import OauthLoginButton from '../common/button/OauthLoginButton.tsx'
 
 export default function SignIn() {
@@ -64,23 +65,22 @@ export default function SignIn() {
         <label htmlFor="email">
           <span>이메일</span>
         </label>
-        <input
+        <CommonInput
           name="email"
           value={form.email}
           onChange={handleFormChange}
-          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
-          required
+          type="email"
+          required={true}
         />
         <label htmlFor="password">
           <span>비밀번호</span>
         </label>
-        <input
+        <CommonInput
           name="password"
           value={form.password}
           type="password"
+          required={true}
           onChange={handleFormChange}
-          className="p-2 bg-[#EEEEEE] outline-none rounded-none"
-          required
         />
         <CommonButton>로그인</CommonButton>
         <div>
