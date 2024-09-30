@@ -5,6 +5,7 @@ type CommonInputProps = {
   value: string
   type?: string
   required?: boolean
+  placeholder?: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -13,6 +14,7 @@ export default function CommonInput({
   value,
   type = 'text',
   required = false,
+  placeholder = '',
   onChange,
 }: CommonInputProps) {
   return (
@@ -22,6 +24,7 @@ export default function CommonInput({
       value={value}
       required={required}
       onChange={onChange}
+      placeholder={placeholder}
       className="p-2 bg-[#EEEEEE] outline-none rounded-none"
     />
   )

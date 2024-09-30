@@ -7,6 +7,7 @@ import useForm from '../../hooks/useForm.tsx'
 import OauthLoginButton from '../common/button/OauthLoginButton.tsx'
 import CommonButton from '../common/button/CommonButton.tsx'
 import CommonInput from '../common/input/CommonInput.tsx'
+import LoginHr from '../common/hr/LoginHr.tsx'
 
 export default function SignUp() {
   const { form, handleFormChange } = useForm<User>({
@@ -47,25 +48,11 @@ export default function SignUp() {
     <div className="w-full flex justify-center">
       <form
         onSubmit={handleSignUpSubmit}
-        className="w-2/4 flex flex-col px-24 gap-2 shadow-2xl rounded-xl"
+        className="w-2/4 flex flex-col px-24 gap-3 shadow-2xl rounded-xl"
       >
-        <h1 className="flex items-center justify-center text-2xl font-bold my-10">
+        <h1 className="flex items-center justify-center text-2xl font-bold my-7">
           회원가입
         </h1>
-
-        <div className="w-full flex items-center justify-center gap-2">
-          <OauthLoginButton
-            provider="Google"
-            fontSize="1.25rem"
-            bgColor="#4284F3"
-          />
-          <OauthLoginButton
-            provider="Kakao"
-            fontSize="1.25rem"
-            bgColor="#F6D503"
-            textColor="black"
-          />
-        </div>
         <label htmlFor="name">
           <span>이름*</span>
         </label>
@@ -73,9 +60,9 @@ export default function SignUp() {
           name="name"
           value={form.name}
           onChange={handleFormChange}
+          type="text"
           required={true}
         />
-
         <label htmlFor="email">
           <span>이메일*</span>
         </label>
@@ -107,10 +94,26 @@ export default function SignUp() {
           required={true}
         />
         <CommonButton>가입하기</CommonButton>
+        <LoginHr />
+        <div className="w-full flex items-center justify-center gap-2">
+          <OauthLoginButton
+            provider="Google"
+            fontSize="1.25rem"
+            bgColor="#4284F3"
+          />
+          <OauthLoginButton
+            provider="Kakao"
+            fontSize="1.25rem"
+            bgColor="#F6D503"
+            textColor="black"
+          />
+        </div>
         {validationError && <div>{validationError}</div>}
-        <div>
+        <div className="mb-7">
           <span>이미 계정이 있으신가요? </span>
-          <Link to="/sign-in">로그인 →</Link>
+          <Link to="/sign-in" className="text-blue-600 font-bold">
+            로그인 →
+          </Link>
         </div>
       </form>
     </div>
